@@ -12,7 +12,9 @@ Highcharts.getSVG = function (charts) {
 
     var svg = chart.getSVG(),
       // Get width/height of SVG for export
+	   // eslint-disable-next-line
       svgWidth = +svg.match(/^<svg[^>]*width\s*=\s*\"?(\d+)\"?[^>]*>/)[1],
+	   // eslint-disable-next-line
       svgHeight = +svg.match(/^<svg[^>]*height\s*=\s*\"?(\d+)\"?[^>]*>/)[1];
 
     svg = svg.replace("<svg", '<g transform="translate(0,' + top + ')" ');
