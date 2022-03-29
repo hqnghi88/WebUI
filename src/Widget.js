@@ -27,25 +27,36 @@ class Widget extends React.Component {
       data: prevState.data,
       loading: true
     }));
-
     const url = this.state.url;
     const chartType = this.state.chartType;
-    fetch(url)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          result.chart = { type: chartType };
-          console.log(result);
-          this.setState({
-            data: result,
-            loading: false
-          });
-        },
-        (error) => {
-          console.log(error);
-          alert(error);
-        }
-      );
+
+    console.log(url);
+    var socket = new WebSocket(url);
+    socket.binaryType = "arraybuffer";
+    socket.onerror = function (err) {
+      socket.close();
+      socket = null; 
+      console.log(err);
+    };
+    socket.addEventListener('open', (event) => { 
+      console.log("connected");
+    });
+    // fetch(url)
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       result.chart = { type: chartType };
+    //       console.log(result);
+    //       this.setState({
+    //         data: result,
+    //         loading: false
+    //       });
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //       alert(error);
+    //     }
+    //   );
   }
 
   render() {
