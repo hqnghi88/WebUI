@@ -28,7 +28,7 @@ class Widget extends React.Component {
       loading: true
     }));
     const url = this.state.url;
-    const chartType = this.state.chartType;
+    // const chartType = this.state.chartType;
 
     console.log(url);
     var socket = new WebSocket(url);
