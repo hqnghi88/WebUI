@@ -37,17 +37,17 @@ body {
 }
 
 .closeBtn {
-  border-radius: 30px;
+  /* border-radius: 30px; */
   height: 30px;
   width: 30px;
-  float: right;
+  float: left;
 }
 
-.widgetHeader {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
+.widgetHeader { 
   text-align: left;
   border-bottom: 1px solid #eee;
+	z-index: 1000;  
+	position: absolute;
 }
 
 .dragHandle {

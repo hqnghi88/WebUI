@@ -1,11 +1,20 @@
-import React from 'react';
-import Charts from "./Chart";
+import React from 'react'
+// import Charts from "./Chart";
 import { Input, Spinner, Card, Button, CardTitle } from "reactstrap";
- 
+
+
 import BaseMap from "./BaseMap";
 class Widget extends React.Component {
+  static id;
   constructor() {
     super();
+    if (typeof Widget.id === 'undefined') {
+      Widget.id = 0;
+    } else {
+      Widget.id += 1;
+    }
+    this.id = "m"+Widget.id;
+
     this.state = {
       data: [],
       loading: false,
@@ -21,30 +30,22 @@ class Widget extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  } 
+  }
 
   fetchFile() {
     this.setState((prevState) => ({
       data: prevState.data,
       loading: true
     }));
-    const url = this.state.url;
+    // const url = this.state.url;
     // const chartType = this.state.chartType;
 
-    console.log(url);
-    // var centerPoint = [105.8249019, 21.0076181];
-    // var bbox;
-    // const map = new mapboxgl.Map({
-    // 	container: 'map', // container id
-    // 	style: 'mapbox://styles/mapbox/light-v10',
-    // 	// style: {version: 8,sources: {},layers: []},
+    // console.log(url);
 
-    // 	// pitch: 45,
-    // 	// bearing: -17.6,
-    // 	antialias: true,
-    // 	center: centerPoint, // TLU -84.5, 38.05starting position  [6.069437036914885,45.09389334701125],//
-    // 	zoom: 13 // starting zoom
-    // });
+    this.setState((prevState) => ({
+      data: [0, 1],
+      loading: false
+    }));
 
     // socket.addEventListener('open', (event) => { 
     //   console.log("connected");
@@ -70,12 +71,12 @@ class Widget extends React.Component {
   render() {
     if (this.state.loading)
       return (
-        <div style={{ height: "300px", lineHeight: "300px" }}> 
-          <BaseMap />
+        <div style={{ height: "300px", lineHeight: "300px" }}>
+          <Spinner color="secondary" />
         </div>
       );
 
-    if (this.state.data.length < 1) { 
+    if (this.state.data.length < 1) {
       return (
         <div
           style={{
@@ -102,13 +103,17 @@ class Widget extends React.Component {
             <br />
             <Button color="primary" onClick={this.fetchFile}>
               Convert
-            </Button> 
+            </Button>
           </Card>
         </div>
       );
     }
 
-    return <Charts data={this.state.data}></Charts>;
+    // return <Charts data={this.state.data}></Charts>;
+    return (
+      <BaseMap id={this.id} />
+    )
+      ;
   }
 }
 

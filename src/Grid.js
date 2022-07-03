@@ -54,26 +54,33 @@ class Grid extends React.Component {
     const config = {
       x: 0,
       y: 0,
-      w: 1,
+      w: 2,
       h: 1,
-      maxH: 1,
-      maxW: 2
+      maxH: 2,
+      maxW: 4
     };
     const layouts = this.state.widgets.map((item) => (
       <div className="widget" key={item.id} data-grid={config}>
         <div style={{ width: "100%", height: "100%" }}>
           <div className="widgetHeader">
-            <div className="dragHandle">
-              <RiDragMove2Fill className="dragIcon"></RiDragMove2Fill>
-            </div>
-            <Button
-              className="closeBtn"
-              color="danger"
-              size="sm"
-              onClick={() => this.removeWidget(item.id)}
-            >
-              X
-            </Button>
+            <table>
+              <tbody>
+
+                <tr><td width="100%"><div className="dragHandle">
+
+                  <RiDragMove2Fill className="dragIcon"></RiDragMove2Fill>
+                </div></td>
+                  <td> <Button
+                    className="closeBtn"
+                    color="danger"
+                    size="sm"
+                    onClick={() => this.removeWidget(item.id)}
+                  >
+                    X
+                  </Button></td></tr>
+              </tbody>
+            </table>
+
           </div>
           <Widget></Widget>
         </div>
@@ -94,7 +101,7 @@ class Grid extends React.Component {
         <ResponsiveGridLayout
           className="layout"
           breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-          cols={{ lg: 4, md: 3, sm: 2, xs: 1, xxs: 1 }}
+          cols={{ lg: 6, md: 3, sm: 2, xs: 1, xxs: 1 }}
           rowHeight={370}
           draggableHandle={".dragHandle"}
           layouts={this.state.layouts}
