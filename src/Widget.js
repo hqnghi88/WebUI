@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
 import Charts from "./Chart";
 import { Input, Spinner, Card, Button, CardTitle } from "reactstrap";
-
+ 
+import BaseMap from "./BaseMap";
 class Widget extends React.Component {
   constructor() {
     super();
@@ -20,7 +21,7 @@ class Widget extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  } 
 
   fetchFile() {
     this.setState((prevState) => ({
@@ -31,16 +32,23 @@ class Widget extends React.Component {
     // const chartType = this.state.chartType;
 
     console.log(url);
-    var socket = new WebSocket(url);
-    socket.binaryType = "arraybuffer";
-    socket.onerror = function (err) {
-      socket.close();
-      socket = null; 
-      console.log(err);
-    };
-    socket.addEventListener('open', (event) => { 
-      console.log("connected");
-    });
+    // var centerPoint = [105.8249019, 21.0076181];
+    // var bbox;
+    // const map = new mapboxgl.Map({
+    // 	container: 'map', // container id
+    // 	style: 'mapbox://styles/mapbox/light-v10',
+    // 	// style: {version: 8,sources: {},layers: []},
+
+    // 	// pitch: 45,
+    // 	// bearing: -17.6,
+    // 	antialias: true,
+    // 	center: centerPoint, // TLU -84.5, 38.05starting position  [6.069437036914885,45.09389334701125],//
+    // 	zoom: 13 // starting zoom
+    // });
+
+    // socket.addEventListener('open', (event) => { 
+    //   console.log("connected");
+    // });
     // fetch(url)
     //   .then((res) => res.json())
     //   .then(
@@ -62,12 +70,12 @@ class Widget extends React.Component {
   render() {
     if (this.state.loading)
       return (
-        <div style={{ height: "300px", lineHeight: "300px" }}>
-          <Spinner color="secondary" />
+        <div style={{ height: "300px", lineHeight: "300px" }}> 
+          <BaseMap />
         </div>
       );
 
-    if (this.state.data.length < 1)
+    if (this.state.data.length < 1) { 
       return (
         <div
           style={{
@@ -94,10 +102,11 @@ class Widget extends React.Component {
             <br />
             <Button color="primary" onClick={this.fetchFile}>
               Convert
-            </Button>
+            </Button> 
           </Card>
         </div>
       );
+    }
 
     return <Charts data={this.state.data}></Charts>;
   }
